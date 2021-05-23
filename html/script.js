@@ -5900,7 +5900,7 @@ function play(index) {
     last = now;
     now = replay.pointsU[i + 2] / 1000 + replay.pointsU[i + 1] * 4294967.296;
 
-    traceOpts.endStamp = now;
+    traceOpts.endStamp = now + replay.ival;
 
     replay.ival = (replay.pointsU[i + 3] & 65535) / 1000;
 
@@ -5968,6 +5968,11 @@ function play(index) {
             gs: gs,
         };
         processAircraft(ac, false, false);
+    }
+
+    for (let i in SelPlanes) {
+        const plane = SelPlanes[i];
+        plane.processTrace();
     }
 
     triggerRefresh = 1;
